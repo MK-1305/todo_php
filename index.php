@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="追加する" class="button"/>
         </form>
         <?php
-            $stmt = $db->prepare('select text from todo order by id desc');
+            $stmt = $db->prepare('select id text from todo order by id desc');
 
             if (!$stmt) {
                 die($db->error);
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 die($db->error);
             }
 
-            $stmt->bind_result($todo);
+            $stmt->bind_result($id, $todo);
             while ($stmt->fetch()):
         ?>
         <div class="post-area">
@@ -68,8 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php echo h($todo); ?>
                         </td>
                         <td class="todo-complete">完了</td>
-                        <td class="todo-update">編集</td>
-                        <td class="todo-delete">削除</td>
+                        <td class="todo-update">
+                            <a href="update.php?id=<?php echo $id; ?>"></a>編集
+                        </td>
+                        <td class="todo-delete"><a href="delete.php?id<?php echo $id; ?>"></a>削除</td>
                     </tr>
                 </table>
             <?php endif; ?>
