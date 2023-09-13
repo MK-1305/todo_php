@@ -1,6 +1,9 @@
 <?php
 require('db_connect.php');
-$stmt = $db->prepare('select * from todo where id=?');
+
+$db = db_connect();
+
+$stmt = $db->prepare('select id, text from todo where id=?');
 if (!$stmt) {
     die($db->error);
 }
@@ -20,6 +23,8 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <title>編集</title>
 </head>
 <body>
@@ -31,9 +36,10 @@ if (!$result) {
     <div class="text">
         <h3>変えていいのかい？</h3>
         <form action="update_do.php" method="post">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
             <textarea name="todo" cols="100" rows="1" 
-            placeholder="メモを入力してください"><?php h($todo); ?></textarea><br>
-            <input type="submit" value="追加する" class="button"/>
+            placeholder="メモを入力してください"><?php echo h($todo); ?></textarea><br>
+            <input type="submit" value="変更する" class="button"/>
         </form>
     </div>
 </body>

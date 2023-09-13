@@ -1,6 +1,8 @@
 <?php
 require('db_connect');
 
+$db = db_connect();
+
 $stmt = $db->prepare('delete from todo where id=?');
 if (!$stmt) {
     die($db->error);
