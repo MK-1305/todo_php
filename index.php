@@ -47,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="追加する" class="button"/>
         </form>
         <?php
-            $stmt = $db->prepare('select id, text from todo order by id desc');
+            // 更新が新しい順に並べる（古いのは下に）
+            $stmt = $db->prepare('select id, text from todo order by updated_at desc');
 
             if (!$stmt) {
                 die($db->error);
@@ -79,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 const delete_alert = document.querySelector('#delete');
 
                                 delete_alert.addEventListener('click', () => {
-                                    window.alert('本当にいいのかい？');
+                                    window.confirm('本当にいいのかい？');
                                 });
                             </script>
                         </td>

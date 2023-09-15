@@ -3,7 +3,7 @@ require('db_connect.php');
 
 $db = db_connect();
 
-$stmt = $db->prepare('select id, text from todo where id=?');
+$stmt = $db->prepare('select * from todo where id=?');
 if (!$stmt) {
     die($db->error);
 }
@@ -11,11 +11,13 @@ $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $stmt->bind_param('i', $id);
 $stmt->execute();
 
-$stmt->bind_result($id, $todo);
+$stmt->bind_result($id, $todo, $created, $update);
 $result = $stmt->fetch();
 if (!$result) {
     die('todoの指定が正しくありません');
 }
+
+var_dump($update);
 ?>
 
 <!DOCTYPE html>
