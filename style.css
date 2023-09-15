@@ -39,7 +39,8 @@ h3 {
     color: #fff;
 }
 
-textarea {
+.textarea {
+    width: 80px;
     border-radius: 8px;
     border: 1px solid #000;
     height: 30px;
@@ -76,4 +77,8 @@ td {
 
 .todo-text {
     width: 60vw;
+}
+
+.todo-complete:hover {
+    background-color: aliceblue;
 }
