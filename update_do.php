@@ -10,6 +10,7 @@ if (!$stmt) {
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 $todo = filter_input(INPUT_POST, 'todo', FILTER_SANITIZE_STRING);
 $stmt->bind_param('si', $todo, $id);
+// prepareの?の順番で書くの忘れないように！
 $success = $stmt->execute();
 if (!$success) {
     die($db->error);

@@ -5,20 +5,20 @@ $db = db_connect();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $todo = filter_input(INPUT_POST, 'todo', FILTER_SANITIZE_STRING);
-    $stmt = $db->prepare('insert into todo (text) value(?)');
-    if (!$stmt) {
-        die($db->error);
-    }
+            $stmt = $db->prepare('insert into todo (text) value(?)');
+            if (!$stmt) {
+                die($db->error);
+            }
 
-    $stmt->bind_param('s', $todo);
-    $success = $stmt->execute();
+            $stmt->bind_param('s', $todo);
+            $success = $stmt->execute();
 
-    if (!$success) {
-        die($db->error);
-    }
+            if (!$success) {
+                die($db->error);
+            }
 
-    header('Location: index.php');
-    exit();
+            header('Location: index.php');
+            exit();
 }
 
 ?>
@@ -41,7 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="text">
         <h3>今日は何する？</h3>
         <form action="" method="post">
-            <textarea name="todo" cols="100" rows="1" 
+            <!-- requiredは空白の時の簡易アラートになる -->
+            <textarea required name="todo" cols="100" rows="1" 
             placeholder="メモを入力してください"></textarea><br>
             <input type="submit" value="追加する" class="button"/>
         </form>
@@ -71,7 +72,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <td class="todo-update">
                             <a href="update.php?id=<?php echo $id; ?>">編集</a>
                         </td>
-                        <td class="todo-delete"><a href="delete.php?id<?php echo $id; ?>">削除</a></td>
+                        <td class="todo-delete">                            
+                            <!-- JSでアラートウィンドウを呼び出したい -->
+                            <a id="delete" href="delete.php?id=<?php echo $id; ?>">削除</a>
+                            <script>
+                                const delete_alert = document.querySelector('#delete');
+
+                                delete_alert.addEventListener('click', () => {
+                                    window.alert('本当にいいのかい？');
+                                });
+                            </script>
+                        </td>
                     </tr>
                 </table>
             <?php endif; ?>
