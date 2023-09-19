@@ -69,7 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <td class="todo-text">
                             <?php echo h($todo); ?>
                         </td>
-                        <td class="todo-complete">完了</td>
+                        <td class="todo-complete">
+                            <a href="">完了</a>
+                        </td>
                         <td class="todo-update">
                             <a href="update.php?id=<?php echo $id; ?>">編集</a>
                         </td>
