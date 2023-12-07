@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php echo h($todo); ?>
                         </td>
                         <td class="todo-complete">
+                            <!-- 完了を押したら良くやった的なのをJSで書きたい -->
                             <a href="">完了</a>
                         </td>
                         <td class="todo-update">
@@ -80,9 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <a id="delete" href="delete.php?id=<?php echo $id; ?>">削除</a>
                             <script>
                                 const delete_alert = document.querySelector('#delete');
-
                                 delete_alert.addEventListener('click', () => {
-                                    window.confirm('本当にいいのかい？');
+                                    if(window.confirm('本当にいいのかい？')){
+                                        return true;
+                                    }else {
+                                        return false;
+                                    }
                                 });
                             </script>
                         </td>
