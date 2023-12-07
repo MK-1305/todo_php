@@ -79,6 +79,26 @@ td {
     width: 60vw;
 }
 
-.todo-complete:hover {
-    background-color: aliceblue;
+a {
+    text-decoration: none;
+    color: #000;
 }
+
+.todo-complete:hover {
+    background-color: lightgreen;
+    cursor: pointer;
+    color: #fff;
+}
+
+.todo-update:hover {
+    background-color: lightskyblue;
+    cursor: pointer;
+    color: #fff;
+}
+
+.todo-delete:hover {
+    background-color: lightcoral;
+    cursor: pointer;
+    color: #fff;
+}
+

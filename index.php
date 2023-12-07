@@ -47,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="追加する" class="button"/>
         </form>
         <?php
-            $stmt = $db->prepare('select id, text from todo order by id desc');
+            // 更新が新しい順に並べる（古いのは下に）
+            $stmt = $db->prepare('select id, text from todo order by updated_at desc');
 
             if (!$stmt) {
                 die($db->error);
@@ -68,7 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <td class="todo-text">
                             <?php echo h($todo); ?>
                         </td>
-                        <td class="todo-complete">完了</td>
+                        <td class="todo-complete">
+                            <!-- 完了を押したら良くやった的なのをJSで書きたい -->
+                            <a href="">完了</a>
+                        </td>
                         <td class="todo-update">
                             <a href="update.php?id=<?php echo $id; ?>">編集</a>
                         </td>
@@ -77,9 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <a id="delete" href="delete.php?id=<?php echo $id; ?>">削除</a>
                             <script>
                                 const delete_alert = document.querySelector('#delete');
-
                                 delete_alert.addEventListener('click', () => {
-                                    window.alert('本当にいいのかい？');
+                                    if(window.confirm('本当にいいのかい？')){
+                                        return true;
+                                    }else {
+                                        return false;
+                                    }
                                 });
                             </script>
                         </td>
